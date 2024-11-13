@@ -58,8 +58,8 @@ export class SalesdataComponent implements AfterViewInit {
   salesPeople: string[] = [];
   regions: string[] = [];
 
-  regionForm = this.fb.group({
-    region: [null, Validators.compose([Validators.required])]
+  salesdataForm = this.fb.group({
+    salesdata: [null, Validators.compose([Validators.required])]
   });
 
   constructor(
@@ -69,7 +69,7 @@ export class SalesdataComponent implements AfterViewInit {
   ) {
     this.http.get(`${environment.apiBaseUrl}/reports/sales/regions`).subscribe({
       next: (data: any) => {
-        this.regions = data;
+        this.Salesdata = data;
       },
       error: (err) => {
         console.error('Error fetching regions:', err);
@@ -82,8 +82,8 @@ export class SalesdataComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    const region = this.regionForm.controls['region'].value;
-    this.http.get(`${environment.apiBaseUrl}/reports/sales/regions/${region}`).subscribe({
+    const salesdata = this.salesdsataForm.controls['sales'].value;
+    this.http.get(`${environment.apiBaseUrl}/reports/sales/regions/${sales}`).subscribe({
       next: (data: any) => {
         this.totalSales = data.map((s: any) => s.totalSales);
         this.salesPeople = data.map((s: any) => s.salesperson);

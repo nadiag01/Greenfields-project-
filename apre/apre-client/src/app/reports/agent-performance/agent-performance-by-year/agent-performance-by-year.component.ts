@@ -88,7 +88,7 @@ const year = this.yearForm.controls['year'].value;
 
 // Check if there is any value in the supervisor field
 if(year) {
-  // Query that finds sales associated with the obtained supervisor
+  // Query that finds sales associated with the obtained year
   this.http.get(`${environment.apiBaseUrl}/reports/agent-performance/agent-performance-by-year/${year}`).subscribe({
     next: (data: any) => {
       // Set the values obtained
