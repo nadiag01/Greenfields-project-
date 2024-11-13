@@ -21,7 +21,7 @@ import { TableComponent } from './../../../shared/table/table.component';
           </select>
         </div>
         <div class="form__actions">
-          <button class="button button--primary" type="submit">Submit</button>
+          <button class="button button--primary" title="click to fetch data" type="submit">Submit</button>
         </div>
       </form>
 
