@@ -21,6 +21,7 @@ import { TableComponent } from './../../../shared/table/table.component';
           </select>
         </div>
         <div class="form__actions">
+          <!-- added title to state the following once hovering over submit button -->
           <button class="button button--primary" title="click to fetch data" type="submit">Submit</button>
         </div>
       </form>
