@@ -1,9 +1,4 @@
-/**
- * Author: Professor Krasso
- * Date: 10 September 2024
- * File: customer-feedback.component.ts
- * Description: Customer feedback component
- */
+
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 

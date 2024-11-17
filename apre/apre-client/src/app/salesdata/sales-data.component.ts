@@ -1,12 +1,11 @@
 
-import { Component } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ChartComponent } from '../shared/chart/chart.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-
 
 @Component({
   selector: 'app-sales-data',
@@ -19,7 +18,7 @@ import { AfterViewInit } from '@angular/core';
         <div class="form__group">
           <label class="label" for="salesdata">Sales Data</label>
           <select class="select" formControlName="salesdata" id="sales" name="sales">
-            @for( sale of sales; track sale) {
+            @for( sale of salesdata; track sale) {
               <option value="{{ sale }}">{{ sale }}</option>
             }
           </select>
@@ -56,7 +55,7 @@ import { AfterViewInit } from '@angular/core';
 export class SalesdataComponent implements AfterViewInit {
   totalSales: number[] = [];
   salesPeople: string[] = [];
-  regions: string[] = [];
+  salesdata: string[] = [];  // Declare salesdata here to store the fetched data
 
   salesdataForm = this.fb.group({
     salesdata: [null, Validators.compose([Validators.required])]
@@ -67,9 +66,10 @@ export class SalesdataComponent implements AfterViewInit {
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef
   ) {
+    // Fetch regions from the API
     this.http.get(`${environment.apiBaseUrl}/reports/sales/regions`).subscribe({
       next: (data: any) => {
-        this.Salesdata = data;
+        this.salesdata = data;  // Assuming the response is an array of region names or similar
       },
       error: (err) => {
         console.error('Error fetching regions:', err);
@@ -78,12 +78,12 @@ export class SalesdataComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // No need to create chart here, it will be handled by ChartComponent
+    // Chart rendering will be handled automatically by the ChartComponent
   }
 
   onSubmit() {
-    const salesdata = this.salesdsataForm.controls['sales'].value;
-    this.http.get(`${environment.apiBaseUrl}/reports/sales/regions/${sales}`).subscribe({
+    const selectedSalesdata = this.salesdataForm.controls['salesdata'].value;  // Corrected form control name
+    this.http.get(`${environment.apiBaseUrl}/reports/sales/regions/${selectedSalesdata}`).subscribe({
       next: (data: any) => {
         this.totalSales = data.map((s: any) => s.totalSales);
         this.salesPeople = data.map((s: any) => s.salesperson);
